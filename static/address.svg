@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>地址管理</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的" transform="translate(-141.000000, -554.000000)">
+            <g id="我的服务" transform="translate(10.000000, 490.000000)">
+                <g id="编组-3备份-3" transform="translate(115.000000, 64.000000)">
+                    <g id="地址管理" transform="translate(16.000000, 0.000000)">
+                        <circle id="椭圆形" fill="#EB5036" cx="17" cy="17" r="17"></circle>
+                        <path d="M16.6926513,17 C18.1802546,17 19.3841858,15.7938352 19.3841858,14.3084655 C19.3841858,12.8208622 18.178021,11.616931 16.6926513,11.616931 C15.2072817,11.616931 14.0011137,12.8230958 14.0011137,14.3084655 C13.9988832,15.7938352 15.205048,17 16.6926513,17 L16.6926513,17 Z M16.6926513,27 C15.2340853,27 9,18.9410319 9,14.6926513 C9,10.4442707 12.4442707,7 16.6926513,7 C20.9410319,7 24.3853027,10.4442707 24.3853027,14.6926513 C24.3853027,18.9410319 18.1512173,27 16.6926513,27 Z" id="形状" fill="#FFFFFF" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

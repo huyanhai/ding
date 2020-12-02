@@ -1,0 +1,417 @@
+page{
+  background: white;
+  /* width: 100%; */
+	/* height: 100%; */
+	/* position: relative; */
+	color: #000000;
+  /* font-size:1em; */
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  -ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.viShowBack{width: 100%;height: 100%;z-index: 100; position: fixed;background:rgba(0, 0, 0, 0.5);}
+/*公共banner*/
+.swiperBox { width: 100%;height: 375rpx;}
+
+.aligncenter{
+	align-items: center;
+}
+
+
+image{-ms-interpolation-mode:bicubic; max-width:100%; }/*防止windows缩放图片时，图像失真*/
+text{color: #131313}
+.tc{ text-align:center;}
+.tr{ text-align:right;}
+.cl { width:100%; clear:both; font-size:0px; overflow:hidden; }
+.fr { float:right;}
+.fl { float:left;}
+
+.mbt10{margin: 10rpx 0;}
+.mbt20{margin: 20rpx 0;}
+.margingauto{ margin: auto;}
+.margin10{margin:10rpx}
+.margin20{margin:20rpx}
+.marginlr10{margin:0 10rpx}
+.margintb10{margin:10rpx 0}
+.margintb20{margin:20rpx 0}
+.ml1{margin-left: -1rpx;}
+.ml10{margin-left: 10rpx;}
+.ml20{margin-left: 20rpx;}
+.mt5{ margin-top: 5px;}
+.mt10{ margin-top: 10px;}
+.mtrpx10{ margin-top: 10rpx;}
+.mtrpx15{ margin-top: 15rpx;}
+.mtrpx30{ margin-top: 30rpx;}
+.mtrpx40{ margin-top: 40rpx;}
+.mtrpx50{ margin-top: 50rpx;}
+.mtrpx60{ margin-top: 60rpx;}
+.mtrpx70{ margin-top: 70rpx;}
+.mtrpx80{ margin-top: 80rpx;}
+.mtrpx90{ margin-top: 90rpx;}
+.mtrpx100{ margin-top: 100rpx;}
+.mtrpx20{ margin-top: 20px;}
+.mb10{ margin-bottom: 20rpx;}
+.mb20{ margin-bottom: 40rpx;}
+.mb30{ margin-bottom: 60rpx;}
+.mb40{ margin-bottom: 80rpx;}
+.mb50{ margin-bottom: 100rpx;}
+.mb100{ margin-bottom: 200rpx;}
+.mr10{margin-right: 10px;}
+.mr20{margin-right: 20px;}
+.mr30{margin-right: 30px;}
+.mrpx50{margin-right: 50rpx;}
+.ml10{margin-left: 10rpx;}
+.ml20{margin-left: 20rpx;}
+.ml30{margin-left: 30rpx;}
+.ml40{margin-left: 40rpx;}
+.ml50{margin-left: 50rpx;}
+.ml10_fu{margin-left: -20rpx;}
+.hr10 { width:100%; height:10px; clear:both; overflow:hidden;}
+.hr20 { width:100%; height:20px; clear:both; overflow:hidden;}
+.hr50 { width:100%; height:50px; clear:both; overflow:hidden;}
+.hrpx10 { width:100%; height:10rpx; clear:both; overflow:hidden;}
+.hrpx15 { width:100%; height:15rpx; clear:both; overflow:hidden;}
+.hrpx20 { width:100%; height:20rpx; clear:both; overflow:hidden;}
+.hrpx30 { width:100%; height:30rpx; clear:both; overflow:hidden;}
+.hrpx80 { width:100%; height:80rpx; clear:both; overflow:hidden;}
+.hrpx100 { width:100%; height:100rpx; clear:both; overflow:hidden;}
+
+.font30 { font-size:3em;}
+.font20 { font-size:2em;}
+.font19 { font-size:1.7em;}
+.font18 { font-size:1.4em;}
+.font16 { font-size:1.3em;}
+.font14{ font-size:1.2em;}
+.font12{ font-size:1em;}
+.font10{ font-size:0.8em;}
+.font9{ font-size:0.8em;}
+.font8{ font-size:0.6em;}
+.fontB{font-weight: bold}
+/*==============================文字颜色====================*/
+.fontcolor0{ color:#131313;}
+.fontcolor1{ color:#fe629f;}/*主色调*/
+.fontcolor2{ color:#3f8f36;}/*绿色*/
+.fontcolor3{ color:#8a8a8a;}
+.fontcolor4{ color:#ffffff;}
+.fontcolor5{ color:#666666;}
+.fontcolor6{ color:#ff9b43;} /*黄色*/
+.fontcolor7{ color:#877028;}
+.fontcolor8{ color:#644e13;}
+.fontcolor9{ color:#36a6ac;}
+.fontcolor10{ color:#3aa6ac;}
+.fontcolor11{ color:#f22a2a;}
+.fontcolor12{ color:#8bc34a;}
+.fontcolor13{ color:#000000;}
+.fontcolor14{ color:#eee;}
+.fontcolor15{ color:#ccc;}
+.fontcolor16{ color:#888;}
+
+.bgcolor{ background:#fe629f;}/*主色调*/
+.bgcolor1{background:#f22a2a;}
+.bgcolor2{ background:#f8f8f8;}
+.bgcolor3{ background:#e9599d;}
+.bgcolor4{ background:#ff9b43;}
+.bgcolor5{ background:#f8c235;}
+.bgcolor6{ background:#44b9ae;}
+.bgcolor7{ background:#49c0f1;}
+.bgcolor8{ background:#8a8a8a;}
+.bgcolor9{ background:#f5f4fa;}
+.bgcolor10{ background:#ffffff;}
+.bgcolor11{ background:#3f8f36;}/*绿色*/
+.bgcolor12{ background:#e4e6e3;}/*灰色*/
+.bgcolor13{ background:#fff6ef;}
+.bgcolor14{ background:#0bc69c;}
+.bgcolor15{ background:#d1b66f;}
+.bgcolor16{ background:#fff5cd;}
+.bgcolor17{ background:#F5F5F5;}
+.bgcolor18{ background:#000000;}
+.bgcolor19{ background:#ccc;}
+.bgcolor20{ background:#aaa;}
+.bgcolor21{ background:#777;}
+
+
+
+h2{ font-size:2em; font-weight:100;}
+h3{ font-size:1.5em; font-weight:100;}
+
+
+/*==============================公共框架样式====================*/
+.box_col_1{ width:100%;}
+.box_col_2{ width:50%; }
+.box_col_3{ width:33.3333333%;}
+.box_col_4{ width:25%;}
+.box_col_5{ width:20%;}
+.box_col_6{ width:16.6666667%;}
+
+.box_col_5{ width:5%;}
+.box_col_10{ width:10%;}
+.box_col_15{ width:15%;}
+.box_col_20{ width:20%;}
+.box_col_25{ width:25%;}
+.box_col_30{ width:30%;}
+.box_col_35{ width:35%;}
+.box_col_40{ width:40%;}
+.box_col_45{ width:45%;}
+.box_col_50{ width:50%;}
+.box_col_55{ width:55%;}
+.box_col_60{ width:60%;}
+.box_col_65{ width:65%;}
+.box_col_70{ width:70%;}
+.box_col_75{ width:75%;}
+.box_col_80{ width:80%;}
+.box_col_85{ width:85%;}
+.box_col_90{ width:90%;}
+
+.title20{ height:40rpx; line-height:40rpx;}
+.title30{ height:60rpx; line-height:60rpx;}
+.title40{ height:80rpx; line-height:80rpx;}
+.title50{ height:100rpx; line-height:100rpx;}
+.title60{ height:120rpx; line-height:120rpx;}
+.title80{ height:80px; line-height:80px;}
+.title100{ height:100px; line-height:100px;}
+.title120{ height:120px; line-height:120px;}
+
+/*==============================公共内边距样式====================*/
+.padding1{ padding:20rpx;}
+.padding2{ padding:0px 20rpx;}
+.padding3{ padding:20rpx 0px;}
+.padding4{ padding:10rpx 20rpx;}
+.padding5{ padding:10rpx 30rpx;}
+.padding6{ padding:10rpx 0rpx;}
+.padding7{ padding:6rpx;}
+.padding8{ padding:16rpx 16rpx 0rpx 16rpx;}
+.padding9{ padding:10rpx;}
+.padding10{padding:40rpx;}
+.padding11{padding:0px 40rpx;}
+.padding12{ padding:10rpx;}
+.padding13{padding:30rpx;}
+
+.pl20{ padding-left:20rpx;}
+.pl10{ padding-left:10rpx;}
+
+.pt20{padding-top:20rpx;}
+.pt10{padding-top:10rpx;}
+
+.pb10{padding-bottom:10rpx;}
+.pb20{padding-bottom:20rpx;}
+
+.pr20{padding-right:20rpx;}
+.pr10{padding-right:10rpx;}
+/*==============================按钮====================*/
+.button{margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: white;
+  font-size: 30rpx;
+  border-radius: 5rpx;
+  text-align: center;
+}
+.button2:active{ background:#ca4a7c; }
+
+
+/*==============================公共边框样式====================*/
+.border_all{ border:1px solid #e3e4e4;}
+.border_t{ border-top:1px solid #e3e4e4;}
+.border_r{ border-right:1px solid #e3e4e4;}
+.border_b{ border-bottom:1px solid #e3e4e4;}
+.border_l{ border-left:1px solid #e3e4e4;}
+.border_red{ border:1rpx solid #f22a2a;}
+.border_1{ border:1rpx solid #e0cb88;}
+
+/*==============================公共高度banner高度====================*/
+.banner375{ height: 375rpx; -moz-background-clip:content-box; background: linear-gradient(to right, #f11644, #ffa01d); }
+.banner_375{ height: 375rpx;}
+.banner320{ height: 320rpx;}
+.banner322{ height: 322rpx;}
+.banner276{ height: 276rpx;}
+.banner170{ height: 170rpx;}
+.banner400{ height: 400rpx;}
+.banner450{ height: 450rpx;}
+
+.height40{ height: 40%;}
+.height50{ height: 50%;}
+.height60{ height: 60%;}
+.height100{ height: 100%;}
+.heightrp110{ height: 110rpx;}
+.heightrp20{ height:20rpx;}
+.heightrp30{ height:30rpx;}
+.heightrp40{ height:40rpx;}
+.height64{ height:64rpx;}
+.height80{ height:80rpx;}
+.height88{ height:88rpx;}
+.height120{ height:120rpx;}
+.height150{ height:150rpx;}
+.height160{ height:160rpx;}
+.height170{ height:170rpx;}
+.height200{height:200rpx;}
+.height230{ height:230rpx;}
+.height302{ height:302rpx;}
+.height355{ height:355rpx;}
+.height400{ height:400rpx;}
+.height750{ height:750rpx;}
+
+
+
+/**系统常用按钮样式css3**/
+.cart_common{color: #666;display: block;float: left;margin-right: 8px;text-decoration: none;font-weight: lighter;line-height: 1;border: 2px;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 1px 1px #999;text-shadow: 0 -1px 1px #ccc;cursor: pointer;padding: 5px 5px;}
+.cart_common:hover{background: -webkit-gradient(linear, 0 0, 0 100%, from(#ccc), to(#fff) );background: -moz-linear-gradient(top, #ccc, #fff);}
+
+
+  /* 文字截断 */
+.ui-nowrap {max-width: 100%;overflow:hidden; text-overflow:ellipsis;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:1;}
+.ui-nowrap2 {max-width: 100%;overflow:hidden; text-overflow:ellipsis;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2; }
+.ui-nowrap3 {max-width: 100%;overflow:hidden; text-overflow:ellipsis;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:3; }
+
+/* 公共圆角*/
+.radius5{border-radius:5rpx;}
+.radius10{border-radius:10rpx;}
+.radius15{border-radius:15rpx;}
+.radius20{border-radius:20rpx;}
+.radius25{border-radius:25rpx;}
+.radius30{border-radius:30rpx;}
+.radius50{border-radius:50rpx;}
+.radius_100{border-radius:100%;}
+
+.hidden{ overflow: hidden;}
+
+/* 公共listview大小*/
+.listview{ height: 100rpx; line-height: 100rpx;}
+.listview input{ height: 100rpx; line-height: 100rpx; color:#131313;}
+.listview .icon_box{ height: 100rpx;}
+.listview .arro{ height: 100rpx;}
+.imgArrow{width: 15rpx;height: 100%;}
+.listview .icon{ height: 100%; width: 45rpx;  margin-right: 10rpx;}
+.listview .icon70{ height: 100%; width: 70rpx;  margin-right: 10rpx;}
+
+.icon{vertical-align: middle;}
+.listview_box .icon_box{ height: 150rpx;}
+.listview_box .icon{ height: 100%; width: 45rpx;  margin-right: 10rpx;}
+.positionr{ position: relative;}
+.positiona{ position: absolute;}
+.positionf{ position: fixed;}
+.position_t{top: 0px;}
+.position_b{ bottom: 0px;}
+.position_l{ left: 0px;}
+.position_r{ right: 0px; }
+
+.position_t20{ top: -20rpx;}
+.position_t10{ top: 10rpx;}
+.position_l50{ left: 180rpx;}
+.position_l5{ left: 5%;}
+.position_l10{ left: 10%;}
+.position_b20{ bottom: 20rpx;}
+
+
+.zindex1{ z-index:1}
+.zindex2{ z-index:2}
+
+.cart_list .icon{ width: 38rpx; height: 100%; margin-right: 10rpx;}
+.cart_list .img{ width: 150rpx; height: 150rpx;}
+.cart_list .right{ margin-left: 170rpx; }
+
+/* 角标 */
+.ui-red{ width: 50rpx; height: 30rpx;}
+
+
+
+
+
+/*  重写 checkbox 样式  */
+/* 未选中的 背景样式 */
+checkbox .wx-checkbox-input{
+   border-radius: 50%;/* 圆角 */
+   width: 40rpx; /* 背景的宽 */
+   height: 40rpx; /* 背景的高 */
+}
+
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked{
+   background: #f22a2a;
+   border:1px solid #f22a2a;
+}
+
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 40rpx;
+   text-align: center;
+   font-size:30rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+/* flex布局 */
+.flexbetween{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: warp;
+  flex-flow:row wrap;
+}
+
+.flexcenter{
+  display: flex;
+  justify-content: center;
+  flex-wrap: warp;
+  flex-flow:row wrap;
+}
+
+.flexaround{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: warp;
+  flex-flow:row wrap;
+}
+.flexstart{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: warp;
+  flex-flow:row wrap;
+}
+.flexend{
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: warp;
+  flex-flow:row wrap;
+}
+/* 文本显示方向 */
+.textright{
+  text-align: right;
+}
+.textleft{
+  text-align: left;
+}
+.textcenter{
+  text-align: center;
+}
+.inline{
+  display: inline;
+}
+.hidden{
+  display: none;
+}
+
+.borderR{
+  border-radius: 100%
+}
+.wh40{
+  width: 40rpx;
+  height: 80rpx;
+}
+.wh60{
+  width: 50rpx;
+  height: 100rpx;
+}
+.a{
+  position: fixed;
+
+}
+.width200{
+  width: 200px
+}
