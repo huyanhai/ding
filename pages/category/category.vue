@@ -1,7 +1,7 @@
 <template>
 	<scroll-view scroll-y="true" class="category">
 		<view class="category_top">
-			<image class="ui-img" mode=""></image>
+			<!-- <image class="ui-img" mode=""></image>
 			<view class="tips">不可错过的爽辣新品值得欢辣一试！</view>
 			<view class="info">
 				<view class="name">重庆牛油火锅底料</view>
@@ -9,7 +9,7 @@
 					会员价¥14.0元
 				</view>
 				<view class="zongjia"> ¥18.90元</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="product">
 			<view class="list">
@@ -59,10 +59,9 @@
 		.category_top{
 			margin: 30rpx;
 			border-radius: 20rpx;
-			box-sizing: border-box;
-			padding: 20rpx;
-			background: #FFFFFF;
-			.ui-img{
+			background: red;
+			height: 604rpx;
+			/* .ui-img{
 				height: 400rpx;
 				background: red;
 			}
@@ -74,7 +73,7 @@
 				color: #000000;
 				line-height: 40rpx;
 				margin-top: 20rpx;
-			}
+			} */
 		}
 		.product{
 			padding-bottom: 50rpx;

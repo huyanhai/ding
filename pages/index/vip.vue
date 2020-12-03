@@ -2,7 +2,7 @@
 	<view class="index_vip">
 		<view class="quanyi_shuoming"></view>
 		<view class="quanyi_card"></view>
-		<view class="ui-btn">加入丁老表爽辣食界会员</view>
+		<view class="ui-btn" @click="goPage">加入丁老表爽辣食界会员</view>
 	</view>
 </template>
 
@@ -12,6 +12,13 @@
 			return {
 				
 			};
+		},
+		methods:{
+			goPage(){
+				uni.reLaunch({
+					url:"/pages/index/index"
+				})
+			}
 		}
 	}
 </script>
@@ -48,5 +55,6 @@
 		font-size: 30rpx;
 		color: #FFFFFF;
 	}
+	
 }
 </style>

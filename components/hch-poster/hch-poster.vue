@@ -541,7 +541,7 @@ export default {
     text-align: center;
     border-radius: 45rpx;
     border-radius: 36rpx;
-	background-color: #ff6a00;
+	background-color: #CD0000;
   }
   .canvas_close_btn {
     position: fixed;

@@ -175,6 +175,16 @@
 				"enablePullDownRefresh": true
 			}
 		}, 
+		{
+			"path": "pages/user/myfens",
+			"style": {
+				"navigationBarTitleText": "我的粉丝",
+				"app-plus": {
+					"titleNView": false
+				},
+				"enablePullDownRefresh": true
+			}
+		},
 		// {
 		// 	"path": "pages/product/list",
 		// 	"style": {

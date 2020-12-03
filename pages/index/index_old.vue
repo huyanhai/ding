@@ -408,7 +408,6 @@
 							<view >生成分享图片</view>
 						</view>
 					</view>
-			
 				</view>
 			</view>
 			<hchPoster ref="hchPoster" :canvasFlag.sync="canvasFlag" @cancel="canvasCancel" :posterObj.sync="posterData"/>
@@ -1269,7 +1268,6 @@
 				})
 				try{
 					let code = await this.codeImg();
-					console.log(code)
 					Object.assign(this.posterData,
 					{
 						url:'../../static/hbg.jpg',//商品主图
