@@ -22,13 +22,13 @@
 						数量
 					</view>
 					<view class="right">
-						<view class="reduce">
+						<view class="reduce" @click="reduce">
 							-
 						</view>
 						<view class="num">
-							1
+							{{num}}
 						</view>
-						<view class="add">
+						<view class="add" @click="add">
 							+
 						</view>
 					</view>
@@ -45,7 +45,8 @@
 	export default {
 		data() {
 			return {
-				showLayer:false
+				showLayer:false,
+				num:1
 			};
 		},
 		onShow(){
@@ -54,7 +55,16 @@
 		methods:{
 			async getCard(){
 				let {data} = await this.$http.allowList();
-				console.log(data)
+			},
+			reduce(){
+				if(this.num > 1){
+					this.num --;
+				}
+			},
+			add(){
+				if(this.num < 99){
+					this.num ++;
+				}
 			}
 		}
 	}

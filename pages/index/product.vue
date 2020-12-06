@@ -49,6 +49,9 @@
 		.name{
 			color: #000000;
 			font-size: 24rpx;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		.hyj_item{
 			display: flex;

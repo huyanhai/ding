@@ -81,8 +81,9 @@
 					<view class="font12 fontB">爽辣食界   爽的炸口</view>
 				</view>
 				<view>
-					<view v-if="allProductList.length" class="list-containers">
-						<wfalls3 ref='allProduct' :list='allProductList' @eventAdd="add"></wfalls3>
+					<view v-if="allProductList.length" class="list">
+						<product v-for="(item,index) in allProductList" :key="index" :item.sync="item"/>
+						<!-- <wfalls3 ref='allProduct' :list='allProductList' @eventAdd="add"></wfalls3> -->
 					</view>
 				</view>
 			</view>
@@ -220,7 +221,9 @@
 	import uniNumberBox from '@/components/uni-number-box.vue'
 	import hchPoster from '@/components/hch-poster/hch-poster.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
-	import wfalls3 from 'components/wfalls-flow/wfalls-flow3';
+	// import wfalls3 from 'components/wfalls-flow/wfalls-flow3';
+	import product from "../index/product.vue"
+	
 	import {
 		mapState
 	} from 'vuex';
@@ -228,8 +231,9 @@
 		components: {
 			uniNumberBox,
 			uniLoadMore,
-			wfalls3,
-			hchPoster
+			// wfalls3,
+			hchPoster,
+			product
 		},
 		data() {
 			return {
@@ -940,6 +944,20 @@
 		}
 		.detail-desc{
 			margin: 28rpx;
+		}
+		.list{
+			display: flex;
+			flex-wrap: wrap;
+			product{
+				width: calc(50% - 10rpx);
+				margin-top: 20rpx;
+				&:nth-child(2n+1){
+					margin-right: 10rpx;
+				}
+				&:nth-child(2n+2){
+					margin-left: 10rpx;
+				}
+			}
 		}
 	}
 	//选择商品数量
@@ -2024,4 +2042,5 @@
 		font-size: 20rpx;
 		margin-bottom: 19rpx;
 	}
+	
 </style>

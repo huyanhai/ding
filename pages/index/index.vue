@@ -18,8 +18,11 @@
 			</view>
 		</view>
 		<view class="more">
-			<view class="item" v-for="(item,index) in (pageData).hotProductList" v-if="index < 2">
-				<image class="img" :src="item.pic" mode=""></image>
+			<view class="item" @click="goPage('hot')">
+				<image class="img" src="" mode=""></image>
+			</view>
+			<view class="item" @click="goPage('new')">
+				<image class="img" src="" mode=""></image>
 			</view>
 		</view>
 		<view class="product">
@@ -342,6 +345,7 @@
 			height: 196rpx;
 			border-radius: 20rpx;
 			overflow: hidden;
+			background: red;
 			&:nth-child(2n+1){
 				margin-right: 10rpx;
 			}

@@ -185,6 +185,26 @@
 				"enablePullDownRefresh": true
 			}
 		},
+		{
+			"path": "pages/index/hot",
+			"style": {
+				"navigationBarTitleText": "爽辣爆款",
+				"app-plus": {
+					"titleNView": false
+				},
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/new",
+			"style": {
+				"navigationBarTitleText": "爽辣尝鲜",
+				"app-plus": {
+					"titleNView": false
+				},
+				"enablePullDownRefresh": true
+			}
+		},
 		// {
 		// 	"path": "pages/product/list",
 		// 	"style": {
