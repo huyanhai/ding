@@ -1,57 +1,82 @@
 <template>
 	<view class="container">
 		<scroll-view scroll-y="true" style="height:90vh" @scrolltolower="loadProductData">
-			<view class="top_container">
-				<view class="carousel b-b">
-					<swiper indicator-dots circular=true duration="400">
-						<swiper-item class="swiper-item" v-for="(item,index) in goodInfo.listAlbumPics" :key="index">
-							<view class="image-wrapper">
-								<image :src=item class="loaded" mode="aspectFill" @click="preImage"></image>
-							</view>
-						</swiper-item>
-					</swiper>
+			<view class="carousel b-b">
+				<swiper indicator-dots circular=true duration="400">
+					<swiper-item class="swiper-item" v-for="(item,index) in goodInfo.listAlbumPics" :key="index">
+						<!-- <view style='position: absolute;right: 5px;top: 30rpx;width: 50px;height: 50rpx;z-index: 99999;' @click.stop="toFavorite">
+							<image src="../../static/heart_selected.svg" mode="" v-if="favorite"></image>
+							<image src="../../static/heart.svg" mode="" v-else></image>
+						</view> -->
+						<view class="image-wrapper">
+							<image :src=item class="loaded" mode="aspectFill" @click="preImage"></image>
+						</view>
+					</swiper-item>
+				</swiper>
+				<button class="share-btn" open-type="share" :style="'left:'+(moveX==9999?'': moveX)+'px;top:'+ (moveY == 9999?'':moveY) +'px'"
+				 @touchstart.stop="drag_start" @touchmove.prevent="drag_hmove" @touchend="shareEvn">
+					<image style="width:40upx;height: 40upx;" src="../../static/shareIcon.svg" mode=""></image>
+				</button>
+			</view>
+			<!-- <view>{{goodInfo.listAlbumPics}}</view> -->
+			<!-- <view class="seckill" v-if="goodInfo.flashPrice">
+				<view class="left">
+					<view style="font-weight: bold;color: #fff;font-size: 40upx;">秒杀中</view>
+					<view class="">
+						<text style="font-size: 28upx;color: #fff;">限购{{goodInfo.flashLimit}}份 / 剩余{{goodInfo.flashCount}}份</text>
+					</view>
 				</view>
-				<view class="bgcolor10" style="padding: 10upx 20upx 10upx;">
-					<view class="font10 mt10 mb10" style="font-size: 36rpx;margin-bottom: 10rpx;">{{goodInfo.name || '暂无'}}</view>
-					<view class="font10 mt10 mb10" style="font-size: 20rpx;color: #292929;margin: 10rpx 0;">{{goodInfo.subTitle || '暂无'}}{{ goodInfo.specChildList[currentSkuIndex].name||''}}</view>
-					
+				<view class="right">
+					仅售
+					<text>
+						<text style='font-size: 25upx;color: rgb(242,95,0)'>￥</text>
+						<text style="color: rgb(242,95,0)">{{goodInfo.flashPrice}}</text>
+					</text>
+				</view>
+			</view> -->
+			
+			<view class="bgcolor10" style="padding: 10upx 20upx 10upx;">
+				<view class="font10 mt10 mb10">{{goodInfo.subTitle || '暂无'}}{{ goodInfo.specChildList[currentSkuIndex].name||''}}</view>
+				<view style="display: flex;">
+					<view class="fontB font14">
+						<span style='color: #e82229;'>￥</span>
+						<span style="color: #e82229;">{{goodInfo.flashCount>0?(goodInfo.flashPrice||skuGoodInfo.price):skuGoodInfo.price || goodInfo.price}}</span>
+					</view>
+					<view class="dis-price" v-if="goodInfo.flashPrice&&goodInfo.flashCount>0">
+						￥{{skuGoodInfo.price }}
+					</view>
+					<view class="dis-price" v-if="!goodInfo.flashPrice&&goodInfo.orignPrice&&goodInfo.orignPrice!=0">
+						{{goodInfo.orignPrice}}
+					</view>
+				</view>
+				<view class="mb10" style="display:flex;justify-content: space-between;">
 					<view class="font10" v-if="goodInfo.vipPrice" >
-						<span style='color: #000000;font-size: 20rpx;'>￥</span>
-						<span style="color: #000000;font-size: 20rpx;">{{goodInfo.vipPrice || 0}}</span>
-						<span style="background: #292929;font-size: 18rpx;color: #FFFFFF;height: 23rpx;border-radius: 23rpx;padding: 0 10rpx;margin-left: 10rpx;">会员价</span>
+						<span >会员价：</span>
+						<span style='color: #e82229;'>￥</span>
+						<span style="color: #e82229;">{{goodInfo.vipPrice || 0}}</span>
 					</view>
-					<view class="mb10" style="display:flex;justify-content: space-between;align-items: center;">
-						<view style="display: flex;">
-							<view class="fontB font14">
-								<span style='color: #C60000;font-size: 36rpx;font-weight: normal;'>￥</span>
-								<span style="color: #C60000;font-size: 36rpx;font-weight: normal;">{{goodInfo.flashCount>0?(goodInfo.flashPrice||skuGoodInfo.price):skuGoodInfo.price || goodInfo.price}}</span>
-							</view>
-							<view class="dis-price" v-if="goodInfo.flashPrice&&goodInfo.flashCount>0">
-								￥{{skuGoodInfo.price }}
-							</view>
-							<view class="dis-price" v-if="!goodInfo.flashPrice&&goodInfo.orignPrice&&goodInfo.orignPrice!=0">
-								{{goodInfo.orignPrice}}
-							</view>
-						</view>
-						<view class="font9" >
-							<text class=" font10" style="color: #A9A9A9;font-size: 20rpx;">库存：{{goodInfo.stock || 0 }}</text>
-							<text class=" ml20 font10" style="color: #A9A9A9;font-size: 20rpx;">运费：{{goodInfo.expressPrice || '免邮'}}</text>
-						</view>
+					<view class="font9" >
+						<!-- <text class="fontcolor16 font12">销量：{{goodInfo.sale === undefined ? 0 : goodInfo.sale}}
+						</text> -->
+						<text class=" font10" style="color: #999999;">库存：{{goodInfo.stock || 0 }}</text>
+						<text class=" ml20 font10" style="color: #999999;">运费：{{goodInfo.expressPrice || '免邮'}}</text>
 					</view>
-					
-					<view class="couponCan" v-if="couponList.length>0">
-						<view class="couponCan-item"><text v-if="couponList.length>0">满{{couponList[0].minPoint}}减{{couponList[0].amount}}</text></view>
-						<view class="couponCan-button" @click="toggleMask('show')">
-							<view class="">
-								领券
-							</view>
-							<image src="../../static/right.svg" mode=""></image>
+				</view>
+				
+				<view class="couponCan" v-if="couponList.length>0">
+					<view class="couponCan-item"><text v-if="couponList.length>0">满{{couponList[0].minPoint}}减{{couponList[0].amount}}</text></view>
+					<view class="couponCan-button" @click="toggleMask('show')">
+						<view class="">
+							领券
 						</view>
+						<image src="../../static/right.svg" mode=""></image>
 					</view>
-					<view class="vip_tips">消费满88元即成为丁老表爽辣食界尊贵会员，劲享欢辣福利</view>
 				</view>
 			</view>
 			
+<!-- 			<view style="height: 100upx;line-height: 100upx;padding: 0 40upx;font-size: 28upx;background-color: #fff;margin-top: 10upx;">
+				<text style="font-weight: bold;color: #000;">配送</text><text style="color: #999999;margin-left: 40upx;">22:00前下单，预计明天({{month}}月{{day}}日)送达</text>
+			</view> -->
 			<!-- 评价 -->
 			<view class="eva-section" v-if="goodInfo.pmsComment">
 				<view class="e-header">
@@ -73,12 +98,15 @@
 				</view>
 			</view>
 			
-			<view class="detail-desc" style="border-radius: 20rpx;overflow: hidden;">
+			<view class="detail-desc">
+				<view class="d-header">
+					<text class="fontB">图文详情</text>
+				</view>
 				<rich-text :nodes="desc"></rich-text>
 			</view>
 			<view class="Recommends" v-if="allProductList.length">
-				<view class="title">
-					<view class="font12 fontB">爽辣食界   爽的炸口</view>
+				<view style="margin: 24upx;">
+					<view class="font12 fontB">精选商品</view>
 				</view>
 				<view>
 					<view v-if="allProductList.length" class="list-containers">
@@ -93,23 +121,32 @@
 		<view class="page-bottom">
 			<navigator url="/pages/index/index" open-type="switchTab" class="p-b-btn">
 				<!-- <text class="yticon icon-xiatubiao--copy"></text>	 -->
-				<view style="display: flex;justify-content: center;align-items: center;">
-					<image style="width: 54rpx;height: 54rpx;" src="../../static/tab-home.png" mode=""></image>
+				<view style="width: 40upx;height: 48upx;display: flex;justify-content: center;align-items: center;">
+					<image style="width: 40upx;height: 40upx;" src="../../static/tab-home.png" mode=""></image>
 				</view>
 				<text>首页</text>
 			</navigator>
 			<navigator url="/pages/cart/cart" open-type="switchTab" class="p-b-btn" style="position: relative;">
-				<view style="display: flex;justify-content: center;align-items: center;">
-					<image style="width: 54rpx;height: 54rpx;" src="../../static/tab-cart.png" mode=""></image>
-				</view>
+				<text class="yticon icon-gouwuche"></text>
 				<text>购物车</text>
 				<view class="tip" v-if="number>0">
 					{{number}}
 				</view>
 			</navigator>
-			<view class="action-btn-group bottom-op">
-				<button style="background: #F8F8F8;border-radius: 20rpx;width: 200rpx;height: 70rpx;text-align: center;line-height: 70rpx;color: #CD0000;font-size: 30rpx;" type="primary" class=" action-btn no-border add-cart-btn" @click="toggleSpec(2)">加入购物车</button>
-				<button style="" type="primary" class="buy" @click="toggleSpec(1)"></button>
+			
+			<!-- <view class="p-b-btn" :class="{active: favorite}" @click="toFavorite">
+				<text class="yticon icon-shoucang"></text>
+				<text>收藏</text>
+			</view> -->
+			
+			<!-- <button class="textcenter contact" open-type="contact" style='background-color: white;'>
+				<image src="../../static/contact.svg" style="width: 20px;height: 20px;"></image>
+				<view style="height: 15rpx;line-height: 15rpx;font-size: 12px;">联系客服</view>
+			</button> -->
+			<view class="action-btn-group">
+				<button style="background-color: #efa023;border-radius: 76upx 0 0 76upx;" type="primary" class=" action-btn no-border add-cart-btn" @click="toggleSpec(2)">加入购物车</button>
+				<button style="background-color: #ef4923;border-radius: 0 76upx 76upx 0;" type="primary" class=" action-btn no-border buy-now-btn" @click="toggleSpec(1)">立即购买</button>
+				<!-- <button v-if="goodInfo.flashPrice" type="primary" class=" action-btn no-border buy-now-btn" @click="toggleSpec(4)">立即秒杀</button> -->
 			</view>
 		</view>
 
@@ -208,7 +245,30 @@
 				</view>
 			</view>
 		</view>
-
+		<!-- <share ref="share" :productData="goodInfo"></share> -->
+		<!-- 分享弹窗-->
+		<view class="share-pro" >
+			<view class="share-pro-mask" v-if="deliveryFlag" @tap="closeShareEvn"></view>
+			<view class="share-pro-dialog" :class="deliveryFlag?'open':'close'" >
+				<view class="close-btn" @tap="closeShareEvn">
+					<span class="font_family">&#xe6e6;</span>
+				</view>
+				<view class="share-pro-title">分享</view>
+				<view class="share-pro-body">
+					<view class="share-item">
+						<button open-type="share">
+							<view class="font_family share-icon">&#xe6fa;</view>
+							<view >分享给好友</view>
+						</button>
+					</view>
+					<!-- <view class="share-item" @tap="createCanvasImageEvn">
+						<view class="font_family share-icon">&#xe6f9;</view>
+						<view >生成分享图片</view>
+					</view> -->
+				</view>
+		
+			</view>
+		</view>
 		<hchPoster ref="hchPoster" :canvasFlag.sync="canvasFlag" @cancel="canvasCancel" :posterObj.sync="posterData"/>
 		<view :hidden="canvasFlag"><!-- 海报 要放外面放组件里面 会找不到 canvas-->
 			<canvas class="canvas"  canvas-id="myCanvas" ></canvas><!-- 海报 -->
@@ -931,17 +991,6 @@
 </script>
 
 <style lang='scss'>
-	.container{
-		box-sizing: border-box;
-		.top_container{
-			margin: 28rpx 28rpx 0 28rpx;
-			border-radius: 20rpx;
-			overflow: hidden;
-		}
-		.detail-desc{
-			margin: 28rpx;
-		}
-	}
 	//选择商品数量
 	.selectNumber {
 		margin-bottom: 10upx;
@@ -1973,55 +2022,8 @@
 		z-index: 2;
 		border-top-left-radius: 24rpx;
 		border-top-right-radius: 24rpx;
-		margin: 0 28rpx;
-		.title{
-			.font12{
-				height: 70rpx;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 20rpx;
-				color: #000000;
-				font-weight: normal;
-				&::before,&::after{
-					height: 2rpx;
-					width: 180rpx;
-					background: #AEAEAE;
-					content: "";
-				}
-			}
-		}
 	}
 	.list-containers{
 		background: #EFD1C6;
-		.list-container{
-			padding: 0 !important;
-		}
-	}
-	.bottom-op{
-		overflow: inherit !important;
-		margin-right: 60rpx;
-		.buy{
-			position: absolute;
-			width: 140rpx;
-			height: 140rpx;
-			border-radius: 140rpx;
-			background: url(../../static/buy1.png) center center #CD0000 no-repeat;
-			right: -120rpx;
-			border: 20rpx solid #FFFFFF;
-			background-size: 60rpx 60rpx;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-	}
-	.vip_tips{
-		height: 60rpx;
-		line-height: 60rpx;
-		text-align: center;
-		background: #FBEBEA;
-		border-radius: 20rpx;
-		color: #CD0000;
-		font-size: 20rpx;
-		margin-bottom: 19rpx;
 	}
 </style>

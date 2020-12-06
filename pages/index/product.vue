@@ -1,6 +1,6 @@
 <template>
 	<view class="product_item">
-		<image class="ui-img" :src="item.pic" mode=""></image>
+		<image class="ui-img" :src="item.pic" mode="" @click="goPage(item)"></image>
 		<view class="info">
 			<view class="name">{{item.name}}</view>
 			<view class="hyj_item">
@@ -23,6 +23,13 @@
 			return {
 				
 			};
+		},
+		methods:{
+			goPage(item){
+				uni.navigateTo({
+					url: `/pages/product/product?id=${item.id}&attr=${item.attr}`
+				});
+			}
 		}
 	}
 </script>

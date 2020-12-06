@@ -1,5 +1,8 @@
 <template>
 	<view class="user" @click="checkLogin">
+		<view v-if="!hasLogin" class="no_login">
+			{{hasLogin}}
+		</view>
 		<view class="user_top">
 			<view class="user_info">
 				<image class="img" :src="memberInfo.headPicture"></image>
@@ -9,11 +12,11 @@
 				</view>
 			</view>
 			<view class="share" @click="showLayer = true">
-				<image src="../../components/etherealwheat-track/images/ic-delivering-G.png" mode=""></image>
+				<image src="../../static/fenxiang.png" mode=""></image>
 				<text>分享</text>
 			</view>
 			<view class="card">
-				<text class="num">30张</text>
+				<text class="num">{{cardData.cardNumber || 0}}张</text>
 				<text class="name">会员卡</text>
 			</view>
 		</view>
@@ -28,19 +31,19 @@
 			</view>
 			<view class="bd">
 				<view class="item" @click="goPage('/pages/order/order?state=0')">
-					<image class="img"></image>
+					<image class="img" src="../../static/icon-dfk.png"></image>
 					<text class="text">待付款</text>
 				</view>
 				<view class="item" @click="goPage('/pages/order/order?state=1')">
-					<image class="img"></image>
+					<image class="img" src="../../static/icon-fahuo.png"></image>
 					<text class="text">待发货</text>
 				</view>
 				<view class="item" @click="goPage('/pages/order/order?state=2')">
-					<image class="img"></image>
+					<image class="img" src="../../static/icon-shouhuo.png"></image>
 					<text class="text">待收货</text>
 				</view>
 				<view class="item" @click="goPage('/pages/order/order?state=3')">
-					<image class="img"></image>
+					<image class="img" src="../../static/icon-yiwancheng.png"></image>
 					<text class="text">已完成</text>
 				</view>
 			</view>
@@ -48,17 +51,17 @@
 		<view class="more_link">
 			<view class="item" @click="goPage('/pages/user/myfens')">我的粉丝</view>
 			<view class="item">联系客服</view>
-			<view class="item">收货地址</view>
+			<view class="item" @click="goPage('/pages/order/orderRe/selectAddress/selectAddress')">收货地址</view>
 		</view>
 		<view class="layer" v-if="showLayer">
 			<view class="option">
-				<view class="item">
-					<image class="img" src="" mode=""></image>
-					<text class="text">转赠会员权益</text>
-				</view>
+				<button data-name="shareBtn" open-type="share" class="item" v-if="memberInfo.vip === 1">
+					<image class="img" src="../../static/liebiaoxunhuan.png" mode=""></image>
+					<view class="text">转赠会员权益</view>
+				</button>
 				<view class="item" @click="createCanvasImageEvn">
-					<image class="img" src="" mode=""></image>
-					<text class="text">生成分享海报</text>
+					<image class="img" src="../../static/shengchenghaibao.png" mode=""></image>
+					<view class="text">生成分享海报</view>
 				</view>
 			</view>
 			<view class="btn" @click="showLayer = false">取消</view>
@@ -79,7 +82,9 @@
 				numberList:[],
 				showLayer:false,
 				posterData:{},
-				canvasFlag:true
+				canvasFlag:true,
+				cardData:{},
+				hasLogin:false
 			}
 		},
 		components:{
@@ -93,9 +98,10 @@
 		},
 		methods:{
 			onShareAppMessage() {
+				let timeCode = (new Date()).valueOf();
 				return {
 					"title": "丁老表",
-					"path": "/pages/index/index?_q=" + this.memberInfo.inviteCode,
+					"path": `/pages/index/index?_q=${this.memberInfo.inviteCode}&activationCode=${timeCode}`,
 					"imageUrl": "http://qn.dinglaobiao.com/1605868973280.png"
 				};
 			},
@@ -109,6 +115,12 @@
 					uni.navigateTo({
 						url: '/pages/public/register'
 					})
+				}
+			},
+			async getCard(){
+				let { data } = await this.$http.getCardList();
+				if(data){
+					this.cardData = data;
 				}
 			},
 			// 生成海报
@@ -178,10 +190,12 @@
 				let token = uni.getStorageSync('token')
 				if(token){
 					this.hasLogin = true;
+					console.log("hasLogin",this.hasLogin);
 					let { data } = await this.$api.getMemberInfo();
 					if(data){
 						this.memberInfo = data;
 						this.loadData();
+						this.getCard();
 					}
 					
 				}
@@ -201,6 +215,14 @@
 		padding: 30rpx;
 		background: #EBEBEB;
 		min-height: 100vh;
+		.no_login{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 100;
+		}
 		.user_top{
 			height: 232rpx;
 			background: #FFFFFF;
@@ -236,7 +258,8 @@
 				top: 16rpx;
 				font-size: 14rpx;
 				color: #4B4B4B;
-				background: red;
+				display: flex;
+				flex-direction: column;
 				image{
 					width: 30rpx;
 					height: 30rpx;
@@ -298,6 +321,8 @@
 			.bd{
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
+				height: 106rpx;
 				.item{
 					display: flex;
 					flex-direction: column;
@@ -306,8 +331,8 @@
 					font-size: 20rpx;
 					color: #000000;
 					image{
-						width: initial;
-						height: 37rpx;
+						width: 54rpx;
+						height: 54rpx;
 					}
 				}
 			}
@@ -351,14 +376,29 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				
 				.item{
 					font-size: 20rpx;
 					color: #5A5A5A;
-					background: red;
-					height: 200rpx;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					margin: 0 40rpx;
+					background: none;
+					height: initial;
+					.text{
+						font-size: 20rpx;
+						height: 30rpx;
+						line-height: 30rpx;
+					}
+					&::after{
+						display: none;
+					}
 					image{
-						width: 40rpx;
-						height: auto;
+						margin-bottom: 20rpx;
+						width: 54rpx;
+						height: 54rpx;
 					}
 				}
 			}

@@ -47,6 +47,15 @@
 			return {
 				showLayer:false
 			};
+		},
+		onShow(){
+			this.getCard();
+		},
+		methods:{
+			async getCard(){
+				let {data} = await this.$http.allowList();
+				console.log(data)
+			}
 		}
 	}
 </script>

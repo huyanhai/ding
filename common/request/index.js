@@ -772,6 +772,22 @@ export const getQiniu=()=>{
 	return http.get('qiniu/getToken');
 }
 
+export const getCardList=()=>{
+	http.interceptor();
+	return http.get('card/list');
+}
+
+export const getMyGroup=(data)=>{
+	http.interceptor();
+	return http.post('member/getMyGroup',data);
+}
+
+export const allowList = ()=>{
+	http.interceptor();
+	return http.get('card/allowList');
+}
+
+
 
 // 默认全部导出  import api from '@/common/vmeitime-http/'
 export default {
@@ -914,5 +930,8 @@ export default {
 	getExpressOptions,
 	getDefaultReceivingAddress,
 	getAddressList,
-	getAddresInfo
+	getAddresInfo,
+	getCardList,
+	getMyGroup,
+	allowList
 }

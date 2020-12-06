@@ -1,11 +1,14 @@
 <template>
 	<scroll-view scroll-y="true" class="my_fens">
-		<view class="item">
-			<image class="img"></image>
+		<view class="item" v-if="fansData.length > 0" v-for="(item,index) in fansData" :key="index">
+			<image class="img" :src="item.icon"></image>
 			<view class="col">
-				<text class="name">易冷松</text>
-				<text class="time">2020-11-30 12:34:21</text>
+				<text class="name">{{item.nickname}}</text>
+				<text class="time">{{item.createTime}}</text>
 			</view>
+		</view>
+		<view class="null">
+			暂无粉丝
 		</view>
 	</scroll-view>
 </template>
@@ -14,8 +17,24 @@
 	export default {
 		data() {
 			return {
-				
+				pageNum:1,
+				pageSize:10,
+				fansData:[]
 			};
+		},
+		onShow(){
+			this.getFans();
+		},
+		methods:{
+			async getFans(){
+				let {data} = await this.$http.getMyGroup({
+					pageNum: this.pageNum,
+					pageSize:this.pageSize
+				});
+				if(data){
+					this.fansData = data;
+				}
+			}
 		}
 	}
 </script>
@@ -26,6 +45,15 @@
 	background: #EBEBEB;
 	box-sizing: border-box;
 	padding: 0 28rpx;
+	.null{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 30rpx;
+		color: #000000;
+	}
 	.item{
 		background: #FFFFFF;
 		display: flex;
