@@ -38,7 +38,7 @@
 		onHide: function() {},
 		onUnload() {
 			this.$api.clearStorage();
-		}
+		},
 	};
 </script>
 

@@ -1,6 +1,6 @@
 <template>
 	<view class="product_item">
-		<image class="ui-img" :src="item.pic" mode="" @click="goPage(item)"></image>
+		<image class="ui-img" :src="item.pic" mode="" @click="goPage(item)" mode="widthFix"></image>
 		<view class="info">
 			<view class="name">{{item.name}}</view>
 			<view class="hyj_item">
@@ -8,6 +8,7 @@
 				<view class="hyj">会员价</view>
 			</view>
 			<view class="zongjia"> ¥{{item.price}}元</view>
+			<view class="more" v-if="more === 'more'">爽辣食界  欢辣新品</view>
 		</view>
 	</view>
 </template>
@@ -17,6 +18,9 @@
 		props: {
 			item:{
 				type:Object
+			},
+			more:{
+				type:String
 			}
 		},
 		data() {
@@ -39,10 +43,7 @@
 	border-radius: 20rpx;
 	background: #FFFFFF;
 	overflow: hidden;
-	height: 370rpx;
 	.ui-img{
-		height: 240rpx;
-		width: 100%;
 		border-radius: 20rpx;
 	}
 	.info{
@@ -57,7 +58,7 @@
 		.hyj_item{
 			display: flex;
 			align-items: center;
-			font-size: 24rpx;
+			font-size: 18rpx;
 			color: #000000;
 			margin: 5rpx 0;
 			.hyj{
@@ -66,15 +67,26 @@
 				border-radius: 23rpx;
 				background: #292929;
 				color: #FFFFFF;
-				font-size: 20rpx;
+				font-size: 14rpx;
 				text-align: center;
 				margin-left: 10rpx;
 				line-height: 23rpx;
 			}
 		}
 		.zongjia{
-			font-size: 30rpx;
+			font-size: 24rpx;
 			color: #C60000;
+		}
+		.more{
+			height: 42rpx;
+			border-radius: 10rpx;
+			background: #292929;
+			color: #FFFFFF;
+			font-size: 30rpx;
+			text-align: center;
+			line-height: 42rpx;
+			margin-top: 20rpx;
+			margin-bottom: 10rpx;
 		}
 	}
 }

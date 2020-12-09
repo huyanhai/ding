@@ -12,7 +12,7 @@
 				<view class="sn">订单编号：<text style="color: #000;font-weight: bold;">{{orderInfo.orderSn}}</text></view>
 				<view class="sn mt10">创建时间：<text style="color: #000;font-weight: bold;">{{orderInfo.createTime}}</text></view>
 				<view class="flexbetween">
-					<view class="sn mt10 font8">订单状态：<text style='color: #EBA542;font-weight: bold;'>{{orderInfo.orderStatusName}}</text></view>
+					<view class="sn mt10 font8">订单状态：<text style='color: #CD0000;font-weight: bold;'>{{orderInfo.orderStatusName}}</text></view>
 					<view class="addressInfo mt10" v-if="orderInfo.isGift==1&&(orderInfo.receiverName||orderInfo.receiveRemainingTime)" style="border:1px solid #272A30;border-radius: 10rpx;padding: 2px;font-size: 23upx;">{{orderInfo.receiverName?'已领取':'好友未领取，'+formatDuring(orderInfo.receiveRemainingTime-curTimer)+'后将自动退单'}}</view>
 					<view class="addressInfo mt10" v-if='orderInfo.payRemainingTime!=undefined' style="border:1px solid #272A30;border-radius: 10rpx;padding: 5px;font-size: 23upx;">剩\t<text style="color: #F0AD4E;">{{formatDuring(orderInfo.payRemainingTime-curTimer)}}</text>\t订单自动关闭</view>
 				</view>
@@ -675,7 +675,7 @@
 
 		.status {
 			font-size: 30upx;
-			color: $base-color;
+			color: #CD0000;
 		}
 
 	}
@@ -1195,7 +1195,7 @@
 		}
 	}
 	.action-btns {
-		color: #efa023;
-		border: 1px solid #efcf00;
+		color: #CD0000;
+		border: 1px solid #CD0000;
 	}
 </style>

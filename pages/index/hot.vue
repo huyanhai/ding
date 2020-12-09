@@ -40,6 +40,7 @@
 	.hot_page{
 		height: 100vh;
 		width: 100%;
+		background: #EBEBEB;
 		.null{
 			width: 100%;
 			height: 100%;

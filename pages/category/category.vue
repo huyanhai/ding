@@ -1,26 +1,28 @@
 <template>
 	<scroll-view scroll-y="true" class="category">
-		<view class="category_top">
-			<!-- <image class="ui-img" mode=""></image>
-			<view class="tips">不可错过的爽辣新品值得欢辣一试！</view>
-			<view class="info">
-				<view class="name">重庆牛油火锅底料</view>
-				<view class="hyj_item">
-					会员价¥14.0元
-				</view>
-				<view class="zongjia"> ¥18.90元</view>
-			</view> -->
+		<view class="category_top" @click="goPage(productList[0])">
+			<image class="ui-img" :src="productList[0].pic" mode=""></image>
 		</view>
 		<view class="product">
 			<view class="list">
-				<product :item.sync="item" v-for="item in productList" :key="item.id"/>
+				<view class="col">
+					<template v-for="(item,index) in productList" >
+						<product :item.sync="item"  :key="item.id" v-if="index===1" :more="'more'"/>
+						<template v-else>
+							<product :item.sync="item" :key="item.id" v-if="index%2 != 0"/>
+						</template>
+					</template>
+				</view>
+				<view class="col">
+					<product :item.sync="item" v-for="(item,index) in productList" :key="item.id" v-if="index%2 == 0"/>
+				</view>
 			</view>
 		</view>
 	</scroll-view>
 </template>
 
 <script>
-	import product from "../index/product.vue"
+	import product from "../index/product-auto.vue"
 	
 	export default {
 		data(){
@@ -37,6 +39,11 @@
 			this.getList();
 		},
 		methods:{
+			goPage(item){
+				uni.navigateTo({
+					url: `/pages/product/product?id=${item.id}&attr=${item.attr}`
+				});
+			},
 			async getList(){
 				 let {data} = await this.$http.getProductList({
 					"sortType":0,
@@ -59,8 +66,12 @@
 		.category_top{
 			margin: 30rpx;
 			border-radius: 20rpx;
-			background: red;
 			height: 604rpx;
+			overflow: hidden;
+			.ui-img{
+				width: 100%;
+				height: 100%;
+			}
 			/* .ui-img{
 				height: 400rpx;
 				background: red;
@@ -81,14 +92,26 @@
 				margin: 0 30rpx;
 				display: flex;
 				flex-wrap: wrap;
+				.col{
+					display: flex;
+					flex-direction: column;
+					width: calc(50% - 15rpx);
+					&:first-child{
+						margin-right: 15rpx;
+					}
+					&:last-child{
+						margin-left: 15rpx;
+					}
+				}
 				product{
-					width: calc(50% - 10rpx);
-					margin-top: 20rpx;
+					break-inside:avoid;
+					margin-bottom: 30rpx;
+					display: inline-block;
 					&:nth-child(2n+1){
-						margin-right: 10rpx;
+						/* margin-right: 10rpx; */
 					}
 					&:nth-child(2n+2){
-						margin-left: 10rpx;
+						/* margin-left: 10rpx; */
 					}
 				}
 			}

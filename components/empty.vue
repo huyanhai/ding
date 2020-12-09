@@ -63,8 +63,8 @@
 		}
 	}
 	.goIndex{
-		border: 1px solid #EBA542;
-		color: #EBA542;
+		border: 1px solid #CD0000;
+		color: #CD0000;
 		border-radius: 8px;
 		padding: 10rpx 30rpx;
 		}

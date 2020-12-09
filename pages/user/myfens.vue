@@ -7,7 +7,7 @@
 				<text class="time">{{item.createTime}}</text>
 			</view>
 		</view>
-		<view class="null">
+		<view class="null" v-else>
 			暂无粉丝
 		</view>
 	</scroll-view>
@@ -26,13 +26,29 @@
 			this.getFans();
 		},
 		methods:{
+			utc2beijing(parme) {
+				if(!parme) return;
+				var date = new Date(parme)
+				  var y = date.getFullYear()
+				  var m = date.getMonth() + 1
+				  m = m < 10 ? ('0' + m) : m
+				  var d = date.getDate()
+				  d = d < 10 ? ('0' + d) : d
+				  const time = y + '-' + m + '-' + d
+				  return time
+			},
 			async getFans(){
 				let {data} = await this.$http.getMyGroup({
 					pageNum: this.pageNum,
 					pageSize:this.pageSize
 				});
+				let _this = this;
 				if(data){
 					this.fansData = data;
+					for(let item of this.fansData){
+						console.log(item)
+						item.createTime = _this.utc2beijing(item.createTime)
+					}
 				}
 			}
 		}
@@ -58,25 +74,30 @@
 		background: #FFFFFF;
 		display: flex;
 		align-items: center;
-		height: 80rpx;
+		height: 135rpx;
 		border-radius: 20rpx;
 		box-sizing: border-box;
 		padding: 0 23rpx;
-		margin-top: 15rpx;
+		margin-top: 30rpx;
 		image{
-			width: 61rpx;
-			height: 61rpx;
-			border-radius: 61rpx;
-			background: red;
+			width: 106rpx;
+			height: 106rpx;
+			border-radius: 106rpx;
+			background: #dedede;
 		}
 		.col{
 			font-size: 20rpx;
 			color: #000000;
 			display: flex;
 			flex-direction: column;
-			margin-left: 16rpx;
+			margin-left: 36rpx;
+			.name{
+				font-size: 30rpx;
+				color: #000000;
+			}
 			.time{
 				color: #464646;
+				font-size: 24rpx;
 			}
 		}
 	}

@@ -13,12 +13,12 @@
 				</view>
 				<view class="bgcolor10" style="padding: 10upx 20upx 10upx;">
 					<view class="font10 mt10 mb10" style="font-size: 36rpx;margin-bottom: 10rpx;">{{goodInfo.name || '暂无'}}</view>
-					<view class="font10 mt10 mb10" style="font-size: 20rpx;color: #292929;margin: 10rpx 0;">{{goodInfo.subTitle || '暂无'}}{{ goodInfo.specChildList[currentSkuIndex].name||''}}</view>
+					<view class="font10 mt10 mb10" style="font-size: 30rpx;color: #292929;margin: 10rpx 0;">{{goodInfo.subTitle || '暂无'}}{{ goodInfo.specChildList[currentSkuIndex].name||''}}</view>
 					
-					<view class="font10" v-if="goodInfo.vipPrice" >
-						<span style='color: #000000;font-size: 20rpx;'>￥</span>
-						<span style="color: #000000;font-size: 20rpx;">{{goodInfo.vipPrice || 0}}</span>
-						<span style="background: #292929;font-size: 18rpx;color: #FFFFFF;height: 23rpx;border-radius: 23rpx;padding: 0 10rpx;margin-left: 10rpx;">会员价</span>
+					<view class="font10" v-if="goodInfo.vipPrice" style="display: flex;align-items: center;">
+						<span style='color: #000000;font-size: 30rpx;'>￥</span>
+						<span style="color: #000000;font-size: 30rpx;">{{goodInfo.vipPrice || 0}}</span>
+						<span style="background: #292929;font-size: 18rpx;color: #FFFFFF;height: 24rpx;border-radius: 24rpx;padding: 0 10rpx;margin-left: 10rpx;">会员价</span>
 					</view>
 					<view class="mb10" style="display:flex;justify-content: space-between;align-items: center;">
 						<view style="display: flex;">
@@ -48,7 +48,8 @@
 							<image src="../../static/right.svg" mode=""></image>
 						</view>
 					</view>
-					<view class="vip_tips">消费满88元即成为丁老表爽辣食界尊贵会员，劲享欢辣福利</view>
+					<view class="vip_tips" v-if="cardData.card_number < 1">消费满88元即成为丁老表爽辣食界尊贵会员，劲享欢辣福利</view>
+					<view class="vip_tips" v-else>尊贵会员：已为您节省{{parseFloat(goodInfo.favourablePrice || 0).toFixed(2) || 0.00}}元</view>
 				</view>
 			</view>
 			
@@ -87,7 +88,9 @@
 					</view>
 				</view>
 			</view>
-			<uni-load-more :status="loadingType"></uni-load-more>
+			<uni-load-more :status="loadingType" :contentText="{
+				contentnomore:'爽辣进行到底，好味从头再来'
+			}"></uni-load-more>
 		</scroll-view>
 
 		<!-- 底部操作菜单 -->
@@ -126,7 +129,14 @@
 						<view class="mt10">
 							<span class="font19 fontB fontcolor13">¥</span>
 							<span v-if="goodInfo.flashLimit&&(goodInfo.flashLimit-goodNum)>=0&&goodInfo.flashCount>0" class="price fontB font19">{{goodInfo.flashPrice||skuGoodInfo.price}}</span>
-							<span v-else class="price fontB font19">{{skuGoodInfo.price}}</span>
+							<span v-else class="price fontB font19">
+								<template v-if="cardData.card_number < 1">
+									{{skuGoodInfo.price}}
+								</template>
+								<template v-else>
+									{{parseFloat(goodInfo.vipPrice).toFixed(2)}}
+								</template>
+							</span>
 						</view>
 						<text class="stock margintb10">库存：{{skuGoodInfo.stock||0}}</text>
 						<view class="selected">
@@ -271,10 +281,12 @@
 				currentSkuIndex:0,
 				month:'',
 				day:'',
+				cardData:{}
 			};
 		},
 		async onShow() {
 			let that = this;
+			this.getCard();
 			//明天的时间
 			let myDate = new Date();
 			myDate.setTime(myDate.getTime()+24*60*60*1000);
@@ -370,6 +382,12 @@
 			...mapState(['hasLogin', 'loginStatus', "flag", "phone"]),
 		},
 		methods: {
+			async getCard(){
+				let { data } = await this.$http.getCardList();
+				if(data.length > 0){
+					this.cardData = data[0];
+				}
+			},
 			preImage(){
 				let that = this;
 				// 预览图片
@@ -949,13 +967,13 @@
 			display: flex;
 			flex-wrap: wrap;
 			product{
-				width: calc(50% - 10rpx);
-				margin-top: 20rpx;
+				width: calc(50% - 15rpx);
+				margin-top: 30rpx;
 				&:nth-child(2n+1){
-					margin-right: 10rpx;
+					margin-right: 15rpx;
 				}
 				&:nth-child(2n+2){
-					margin-left: 10rpx;
+					margin-left: 15rpx;
 				}
 			}
 		}
@@ -1460,8 +1478,9 @@
 			}
 
 			.selected {
-				background: #EBA542;
+				background: #CD0000;
 				color: white;
+				border: none;
 			}
 		}
 	}
@@ -1521,7 +1540,7 @@
 			.btn {
 				height: 80upx;
 				line-height: 80upx;
-				background: #EBA542;
+				background: #CD0000;
 				font-size: $font-base + 2upx;
 				color: #fff;
 				margin: 30upx auto 20upx;
@@ -1592,6 +1611,8 @@
 		height: 120upx;
 		background: rgb(255, 255, 255);
 		box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, 0.5);
+		box-sizing: border-box;
+		padding: 0 30rpx;
 		.p-b-btn {
 			display: flex;
 			flex-direction: column;
@@ -2021,13 +2042,13 @@
 		margin-right: 60rpx;
 		.buy{
 			position: absolute;
-			width: 140rpx;
-			height: 140rpx;
-			border-radius: 140rpx;
+			width: 150rpx;
+			height: 150rpx;
+			border-radius: 150rpx;
 			background: url(../../static/buy1.png) center center #CD0000 no-repeat;
 			right: -120rpx;
 			border: 20rpx solid #FFFFFF;
-			background-size: 60rpx 60rpx;
+			background-size: 70rpx 70rpx;
 			top: 50%;
 			transform: translateY(-50%);
 		}
@@ -2039,7 +2060,7 @@
 		background: #FBEBEA;
 		border-radius: 20rpx;
 		color: #CD0000;
-		font-size: 20rpx;
+		font-size: 24rpx;
 		margin-bottom: 19rpx;
 	}
 	

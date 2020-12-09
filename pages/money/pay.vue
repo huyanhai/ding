@@ -327,7 +327,7 @@
 		margin: 80upx auto 30upx;
 		font-size: $font-lg;
 		color: #fff;
-		background-color: #1DC7AC;
+		background-color: #CD0000;
 		border-radius: 10upx;
 	}
 </style>

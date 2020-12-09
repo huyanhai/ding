@@ -21,7 +21,7 @@
 <style lang="scss">
 .index_follow{
 	box-sizing: border-box;
-	padding: 30rpx;
+	padding: 30rpx 30rpx 60rpx 30rpx;
 	background: #EBEBEB;
 	height: 100vh;
 	.official{
@@ -37,7 +37,7 @@
 	}
 	.ui-btn{
 		position: absolute;
-		bottom: 30rpx;
+		bottom: 60rpx;
 		left: 30rpx;
 		right: 30rpx;
 		height: 68rpx;

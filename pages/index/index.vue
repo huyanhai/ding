@@ -8,7 +8,7 @@
 				<image class="img" src="../../static/icon-small.png" mode=""></image>
 				<text class="text">成为会员</text>
 			</view>
-			<view class="item" @click="goPage('give')">
+			<view class="item" @click="goPage('give',1)">
 				<image class="img" src="../../static/icon-buycard.png" mode=""></image>
 				<text class="text">购卡转赠</text>
 			</view>
@@ -19,10 +19,10 @@
 		</view>
 		<view class="more">
 			<view class="item" @click="goPage('hot')">
-				<image class="img" src="" mode=""></image>
+				<image class="img" src="http://qn.dinglaobiao.com/1607432162165.jpg" mode=""></image>
 			</view>
 			<view class="item" @click="goPage('new')">
-				<image class="img" src="" mode=""></image>
+				<image class="img" src="http://qn.dinglaobiao.com/1607432123363.jpg" mode=""></image>
 			</view>
 		</view>
 		<view class="product">
@@ -92,7 +92,8 @@
 				telephone:"",
 				authCode:"",
 				logining:false,
-				activationCode:null
+				activationCode:null,
+				memberInfo:{}
 			};
 		},
 		components:{
@@ -114,15 +115,43 @@
 				this.$store.commit("setShareMember", option['_q']);
 			}
 		},
+		onShow(){
+			this.gerUser();
+		},
 		methods:{
 			changeTabs(item){
 				this.activeTabs = item;
 				this.getList();
 			},
-			goPage(path){
-				uni.navigateTo({
-					url:`./${path}`
-				})
+			async goPage(path,type){
+				let flag = true;
+				if(type === 1){
+					if(Object.keys(this.memberInfo).length < 1){
+						let {data} =  await this.gerUser();
+						if(data){
+							this.memberInfo = data;
+							flag = this.checkVip();
+						}
+					} else {
+						flag = this.checkVip();
+					}
+				}
+				if(flag){
+					uni.navigateTo({
+						url:`./${path}`
+					})
+				}
+			},
+			checkVip(){
+				let flag = true;
+				if(this.memberInfo.vip !== 1){
+					uni.showToast({
+						icon:"none",
+						title:"累计消费满88元成为会员方可享受相关权益"
+					});
+					flag = false;
+				}
+				return flag;
 			},
 			async getList(){
 				uni.showToast({
@@ -225,7 +254,6 @@
 							}
 							uni.setStorageSync('token', result.data.token);
 							uni.setStorageSync('tokenHead', result.data.tokenHead);
-							uni.navigateBack();
 							
 						}else{
 							that.logining = false;
@@ -243,12 +271,14 @@
 												console.log('登录成功')
 												uni.setStorageSync('token', result.data.token);
 												uni.setStorageSync('tokenHead', result.data.tokenHead);
-												uni.navigateBack({
-													
-												})
 												that.showLayer = false;
 												uni.hideLoading();
 											}else {
+												uni.showToast({
+													icon:"none",
+													title: result.message
+												})
+												uni.hideLoading();
 												console.log('登录失败！' + result.message)
 											}
 										} 
@@ -290,6 +320,12 @@
 				} else {
 					this.$api.msg(result.message);
 					this.inviteType = true;
+				}
+			},
+			gerUser(){
+				let token = uni.getStorageSync('token')
+				if(token){
+					return this.$api.getMemberInfo();
 				}
 			}
 		}
@@ -345,7 +381,6 @@
 			height: 196rpx;
 			border-radius: 20rpx;
 			overflow: hidden;
-			background: red;
 			&:nth-child(2n+1){
 				margin-right: 10rpx;
 			}
@@ -387,13 +422,13 @@
 			display: flex;
 			flex-wrap: wrap;
 			product{
-				width: calc(50% - 10rpx);
-				margin-top: 20rpx;
+				width: calc(50% - 15rpx);
+				margin-top: 30rpx;
 				&:nth-child(2n+1){
-					margin-right: 10rpx;
+					margin-right: 15rpx;
 				}
 				&:nth-child(2n+2){
-					margin-left: 10rpx;
+					margin-left: 15rpx;
 				}
 			}
 		}
@@ -422,7 +457,7 @@
 				color: #3D3D3D;
 			}
 			.text{
-				font-size: 18rpx;
+				font-size: 24rpx;
 				color: #D1D1D1;
 			}
 			.input{
@@ -436,12 +471,12 @@
 				justify-content: center;
 				margin: 40rpx 0 50rpx 0;
 				.name{
-					font-size: 18rpx;
+					font-size: 24rpx;
 					color: #3D3D3D;
 				}
 				.ui-input{
 					width: 100%;
-					font-size: 18rpx;
+					font-size: 24rpx;
 				}
 			}
 			.msg{

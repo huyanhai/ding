@@ -787,6 +787,16 @@ export const allowList = ()=>{
 	return http.get('card/allowList');
 }
 
+export const wxPrePayCard = (data)=>{
+	http.interceptor();
+	return http.post('card/wxPrePayCard',data);
+}
+
+
+
+
+
+
 
 
 // 默认全部导出  import api from '@/common/vmeitime-http/'
@@ -933,5 +943,6 @@ export default {
 	getAddresInfo,
 	getCardList,
 	getMyGroup,
-	allowList
+	allowList,
+	wxPrePayCard
 }

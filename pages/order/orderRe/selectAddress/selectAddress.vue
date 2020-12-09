@@ -104,13 +104,13 @@
 		margin-right: 2%;
 		height: 88upx;
 		color: #FFFFFF;
-		background: #ff9001;
+		background: #CD0000;
 	}
 	.leftText{
 		margin-right: 10upx;
 	}
 	.textAddress{
-		background-color: #00bcb3;
+		background-color: #CD0000;
 		color: #FFFFFF;
 	}
 	.userFont{

@@ -779,7 +779,7 @@
 		margin-right: 10upx;
 	}
 	.textAddress{
-		background-color: #00bcb3;
+		background-color: #CD0000;
 		color: #FFFFFF;
 	}
 	.userFont{
@@ -1169,7 +1169,7 @@
 			height: 70%;
 			color: #fff;
 			font-size: 32upx;
-			background-color: #EBA542;
+			background-color:#CD0000;
 			margin-right: 30rpx;
 			border-radius: 10rpx;
 		}

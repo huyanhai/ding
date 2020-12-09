@@ -21,7 +21,7 @@
 							<view class="leaderInfo">
 								<view class="i-top">
 									<text class="leaderName ui-nowrap">{{item.storeName}}></text>
-									<view class="state" style="color: #EBA542;">{{item.orderStatusName}}</view>
+									<view class="state" style="color: #CD0000;">{{item.orderStatusName}}</view>
 								</view>
 							</view>
 						</view>
@@ -593,7 +593,7 @@
 					transform: translateX(-50%);
 					width: 44px;
 					height: 0;
-					border-bottom: 2px solid #1DC7AC;
+					border-bottom: 2px solid #CD0000;
 				}
 			}
 		}
@@ -790,8 +790,8 @@
 		}
 		
 		.action-btns {
-			color: #efa023;
-			border: 1px solid #efcf00;
+			color: #CD0000;
+			border: 1px solid #CD0000;
 		}
 	}
 

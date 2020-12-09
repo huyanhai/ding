@@ -61,10 +61,12 @@
 					<product :item.sync="item" v-for="item in allProductList" :key="item.id"/>
 				</view>
 			</view>
-			<uni-load-more :status="loadingType"></uni-load-more>
+			<uni-load-more :status="loadingType" :contentText="{
+				contentnomore:'爽辣进行到底，好味从头再来'
+			}"></uni-load-more>
 		</scroll-view>
 		<!-- 底部菜单栏 -->
-		<view class="action-section" v-if="hasLogin && empty">
+		<view class="action-section" v-if="hasLogin && !empty">
 			<view class="checkbox">
 				<view class="textcenter" style="margin-top: -8px;">
 					<view class="yticon icon-xuanzhong2 checkboxfont ml10" :class="{checked: allChecked}" @click="check('all')"></view>
@@ -466,7 +468,8 @@
 		height: 100vh;
 		.top_ad{
 			height: 530rpx;
-			background: red;
+			background:url("http://qn.dinglaobiao.com/1607501010373.png") no-repeat center;
+			background-size: contain;
 			border-radius: 20rpx;
 			overflow: hidden;
 			margin: 30rpx;
@@ -478,13 +481,13 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				font-size: 24rpx;
+				font-size: 30rpx;
 				color: #000000;
 				height: 80rpx;
 				&::before,&::after{
 					width: 200rpx;
 					height: 2rpx;
-					background: #EBEBEB;
+					background: #dedede;
 					content: "";
 					display: block;
 				}
@@ -493,13 +496,13 @@
 				display: flex;
 				flex-wrap: wrap;
 				product{
-					width: calc(50% - 10rpx);
-					margin-top: 20rpx;
+					width: calc(50% - 15rpx);
+					margin-top: 30rpx;
 					&:nth-child(2n+1){
-						margin-right: 10rpx;
+						margin-right: 15rpx;
 					}
 					&:nth-child(2n+2){
-						margin-left: 10rpx;
+						margin-left: 15rpx;
 					}
 				}
 			}
@@ -729,7 +732,7 @@
 			line-height: 75upx;
 			border-radius: 75upx;
 			font-size: $font-base + 2upx;
-			background: #EBA542;
+			background: #CD0000;
 			color: white;
 		}
 
