@@ -1,6 +1,6 @@
 <template>
 	<view class="product_item">
-		<image class="ui-img" :src="item.pic" mode="" @click="goPage(item)"></image>
+		<image class="ui-img" :src="item.pic" mode="widthFix" @click="goPage(item)"></image>
 		<view class="info">
 			<view class="name">{{item.name}}</view>
 			<view class="hyj_item">
@@ -39,9 +39,9 @@
 	border-radius: 20rpx;
 	background: #FFFFFF;
 	overflow: hidden;
-	height: 370rpx;
+	min-height: 370rpx;
 	.ui-img{
-		height: 240rpx;
+		height: 300rpx;
 		width: 100%;
 		border-radius: 20rpx;
 	}

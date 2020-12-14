@@ -6,15 +6,15 @@
 		<view class="product">
 			<view class="list">
 				<view class="col">
+					<product :item.sync="item" v-for="(item,index) in productList" :key="item.id" v-if="index%2 == 0"/>
+				</view>
+				<view class="col">
 					<template v-for="(item,index) in productList" >
 						<product :item.sync="item"  :key="item.id" v-if="index===1" :more="'more'"/>
 						<template v-else>
 							<product :item.sync="item" :key="item.id" v-if="index%2 != 0"/>
 						</template>
 					</template>
-				</view>
-				<view class="col">
-					<product :item.sync="item" v-for="(item,index) in productList" :key="item.id" v-if="index%2 == 0"/>
 				</view>
 			</view>
 		</view>
@@ -45,8 +45,7 @@
 				});
 			},
 			async getList(){
-				 let {data} = await this.$http.getProductList({
-					"sortType":0,
+				 let {data} = await this.$http.getSpicyRoomProductList({
 					"pageSize": this.pageSize,
 					"pageNum": this.pageNum,
 				});

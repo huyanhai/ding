@@ -3,7 +3,6 @@
 		<view class="follow_bg"></view>
 		<view class="ui-btn">
 			关注丁老表官方公众号
-			<official-account class="official"></official-account>
 		</view>
 	</view>
 </template>
@@ -24,13 +23,10 @@
 	padding: 30rpx 30rpx 60rpx 30rpx;
 	background: #EBEBEB;
 	height: 100vh;
-	.official{
-		width: 100%;
-		height: 100rpx;
-	}
 	.follow_bg{
 		height: 961rpx;
-		background: red;
+		background: url("http://qn.dinglaobiao.com/1607433841430.jpg") no-repeat;
+		background-size: cover;
 		border-radius: 20rpx;
 		overflow: hidden;
 		margin-bottom: 37rpx;

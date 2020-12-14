@@ -7,7 +7,7 @@
 				<!-- <view class="close" @click="showLayer = false"></view> -->
 				<view class="top">
 					<view class="left">
-						<image class="img" :src="cardData.url" mode=""></image>
+						<image class="img" src="http://qn.dinglaobiao.com/1607433321200.jpg" mode=""></image>
 					</view>
 					<view class="right">
 						<view class="price">￥{{cardData.cardPrice || 0.00}}</view>
@@ -84,7 +84,7 @@
 				let _this = this;
 				uni.showLoading()
 				let {data} = await this.$http.wxPrePayCard({
-					  "cardPrice": this.cardData.cardPrice,
+					  "cardPrice": this.cardData.specialPrice,
 					  "pay_type": 2,
 					  "quantity": this.num,
 					  // "type": 0
@@ -126,7 +126,8 @@
 	height: 100vh;
 	.follow_bg{
 		height: 961rpx;
-		background: red;
+		background: url("http://qn.dinglaobiao.com/1607433460771.jpg ") no-repeat;
+		background-size: cover;
 		border-radius: 20rpx;
 		overflow: hidden;
 		margin-bottom: 37rpx;

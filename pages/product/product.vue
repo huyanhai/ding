@@ -48,8 +48,8 @@
 							<image src="../../static/right.svg" mode=""></image>
 						</view>
 					</view>
-					<view class="vip_tips" v-if="cardData.card_number < 1">消费满88元即成为丁老表爽辣食界尊贵会员，劲享欢辣福利</view>
-					<view class="vip_tips" v-else>尊贵会员：已为您节省{{parseFloat(goodInfo.favourablePrice || 0).toFixed(2) || 0.00}}元</view>
+					<view class="vip_tips" v-if="cardData.card_number && cardData.card_number > 0">尊贵会员：已为您节省{{parseFloat(goodInfo.favourablePrice || 0).toFixed(2) || 0.00}}元</view>
+					<view class="vip_tips" v-else>消费满88元即成为丁老表爽辣食界尊贵会员，劲享欢辣福利</view>
 				</view>
 			</view>
 			
@@ -130,11 +130,11 @@
 							<span class="font19 fontB fontcolor13">¥</span>
 							<span v-if="goodInfo.flashLimit&&(goodInfo.flashLimit-goodNum)>=0&&goodInfo.flashCount>0" class="price fontB font19">{{goodInfo.flashPrice||skuGoodInfo.price}}</span>
 							<span v-else class="price fontB font19">
-								<template v-if="cardData.card_number < 1">
-									{{skuGoodInfo.price}}
+								<template v-if="cardData.card_number && cardData.card_number > 0">
+									{{parseFloat(goodInfo.vipPrice).toFixed(2)}}
 								</template>
 								<template v-else>
-									{{parseFloat(goodInfo.vipPrice).toFixed(2)}}
+									{{skuGoodInfo.price}}
 								</template>
 							</span>
 						</view>

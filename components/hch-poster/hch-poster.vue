@@ -280,7 +280,7 @@ export default {
 		  wx.getImageInfo({
 		    src: code,
 		    success(res) {
-		      ctx.drawImage(res.path,  _this.x+_this.width-(codeH+20) * scaleH, (top+imageH-codeH-20) * scaleH, codeH* scaleH, codeH* scaleH)
+		      ctx.drawImage(res.path,  _this.x+_this.width-(codeH+8) * scaleH, (top+imageH-codeH - 8) * scaleH, codeH* scaleH, codeH* scaleH)
 		      ctx.draw(true)
 		    },
 		    fail(e) {

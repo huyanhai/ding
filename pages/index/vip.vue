@@ -30,7 +30,8 @@
 	height: 100vh;
 	.follow_bg{
 		height: 961rpx;
-		background: red;
+		background: url("http://qn.dinglaobiao.com/1607433488376.jpg") no-repeat;
+		background-size: cover;
 		border-radius: 20rpx;
 		overflow: hidden;
 		margin-bottom: 37rpx;

@@ -59,20 +59,27 @@
 			<view class="item" @click="call">联系客服</view>
 			<view class="item" @click="goPage('/pages/order/orderRe/selectAddress/selectAddress')">收货地址</view>
 		</view>
-		<view class="layer-bg" v-if="showLayer"></view>
-		<view class="layer" v-if="showLayer">
-			<view class="option">
-				<button data-name="shareBtn" open-type="share" class="item" v-if="cardData.card_number > 0">
-					<image class="img" src="../../static/liebiaoxunhuan.png" mode=""></image>
-					<view class="text">转赠会员权益</view>
-				</button>
-				<view class="item" @click="createCanvasImageEvn">
-					<image class="img" src="../../static/shengchenghaibao.png" mode=""></image>
-					<view class="text">生成分享海报</view>
+		<view class="layer-bg" v-if="showLayer">
+			<view class="layer">
+				<view class="close" @click="showLayer = false"></view>
+				<view class="option">
+					<view class="item" @click="createCanvasImageEvn">
+						<image class="img" src="../../static/shengchenghaibao.png" mode="heightFix"></image>
+						<view class="text num">step 1</view>
+						<view class="text title">分享海报</view>
+						<text class="text">分享海报\n方可邀请用户</text>
+					</view>
+					<button data-name="shareBtn" open-type="share" class="item" v-if="cardData.card_number > 0">
+						<image class="img" src="../../static/liebiaoxunhuan.png" mode="heightFix"></image>
+						<view class="text num">step 2</view>
+						<view class="text title">转赠会员</view>
+						<text class="text">用户识别海报注册\n后方可赠送会员</text>
+					</button>
 				</view>
+				<!-- <view class="btn" @click="showLayer = false">取消</view> -->
 			</view>
-			<view class="btn" @click="showLayer = false">取消</view>
 		</view>
+		
 		<hchPoster ref="hchPoster" :canvasFlag.sync="canvasFlag" @cancel="canvasCancel" :posterObj.sync="posterData"/>
 		<view :hidden="canvasFlag">
 			<canvas class="canvas"  canvas-id="myCanvas"></canvas>
@@ -405,23 +412,32 @@
 			z-index: 1;
 			left: 0;
 			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 		.layer{
-			position: fixed;
 			bottom: 0rpx;
-			width: 100%;
+			width: 600rpx;
 			background: #F5F5F5;
-			border-top-left-radius: 20rpx;
-			border-top-right-radius: 20rpx;
-			height: 360rpx;
+			border-radius: 20rpx;
 			left: 0;
 			z-index: 10;
+			position: relative;			
+			.close{
+				position: absolute;
+				width: 42rpx;
+				height: 42rpx;
+				background: url(../../static/close2.png) no-repeat;
+				background-size: cover;
+				top: -40rpx;
+				right: -40rpx;
+			}
 			.option{
-				height: 260rpx;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				
+				height: 400rpx;
 				.item{
 					font-size: 20rpx;
 					color: #5A5A5A;
@@ -429,33 +445,47 @@
 					flex-direction: column;
 					align-items: center;
 					justify-content: center;
-					margin: 0 40rpx;
 					background: none;
 					height: initial;
+					box-sizing: border-box;
+					width: 300rpx;
+					margin: 0;
 					.text{
 						font-size: 24rpx;
-						height: 30rpx;
 						line-height: 30rpx;
+						text-align: center;
+						color: #79787a;
 					}
 					&::after{
 						display: none;
 					}
 					image{
 						margin-bottom: 20rpx;
-						width: 54rpx;
-						height: 54rpx;
+						height: 80rpx;
+					}
+					.num{
+						font-size: 30rpx;
+						text-align: center;
+						line-height: 30rpx;
+						color: #CD0000;
+					}
+					.title{
+						font-size: 32rpx;
+						font-weight: bold;
+						color: #5A5A5A;
+						margin: 20rpx;
 					}
 				}
 			}
-			.btn{
-				background: #FFFFFF;
-				height: 100rpx;
-				text-align: center;
-				line-height: 100rpx;
-				font-size: 24rpx;
-				color: #000000;
-				display: block;
-			}
+			// .btn{
+			// 	background: #FFFFFF;
+			// 	height: 100rpx;
+			// 	text-align: center;
+			// 	line-height: 100rpx;
+			// 	font-size: 24rpx;
+			// 	color: #000000;
+			// 	display: block;
+			// }
 		}
 		.canvas{
 		    position: fixed !important;

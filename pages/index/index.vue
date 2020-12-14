@@ -61,9 +61,6 @@
 		<view class="layer1" v-if="showLayer1">
 			<view class="container">
 				<view class="close" @click="showLayer1 = false"></view>
-				<view>
-					恭喜您已成为丁老表爽辣食界尊贵会员并拥有30张免费会员卡转赠权益
-				</view>
 			</view>
 		</view>
 	</scroll-view>
@@ -74,11 +71,11 @@
 	export default {
 		data() {
 			return {
-				activeTabs:0,
+				activeTabs:"",
 				tabs:[
 					{
 						name:"全部",
-						id:0
+						id:""
 					},
 				],
 				pageSize:100,
@@ -106,11 +103,12 @@
 		onLoad(option){
 			if (option['scene']) {
 				this.$store.commit("setShareMember", option['scene']);
+				this.showLayer = true;
 			}
 			if (option['_q']) {
 				if(option['activationCode']){
 					this.activationCode = option['activationCode'];
-					this.showLayer = true;
+					this.toLogin();
 				}
 				this.$store.commit("setShareMember", option['_q']);
 			}
@@ -131,6 +129,12 @@
 						if(data){
 							this.memberInfo = data;
 							flag = this.checkVip();
+						} else {
+							flag = false;
+							uni.showToast({
+								icon:"none",
+								title:"未登录"
+							})
 						}
 					} else {
 						flag = this.checkVip();
@@ -158,7 +162,7 @@
 					icon:"loading"
 				})
 				 let {data} = await this.$http.getProductList({
-					"sortType":this.activeTabs,
+					"categoryId":this.activeTabs,
 					"pageSize": this.pageSize,
 					"pageNum": this.pageNum,
 				});
@@ -184,7 +188,7 @@
 					icon:"loading"
 				})
 				let {data} = await this.$http.header();
-				this.productList = data.allProductList;
+				this.getList();
 				this.pageData = data;
 			},
 			toLogin(){
@@ -192,15 +196,17 @@
 				uni.login({
 					async success(res) {
 						if (res.code) {
-							let result = await _this.$http.login({code:res.code,activationCode:_this.activationCode});
-							console.log("登录",result)
+							let result = await _this.$http.login({
+								code:res.code,
+								activationCode:_this.activationCode,
+								});
 							if(result.code==200){
-								console.log('登录成功')
 								uni.setStorageSync('token', result.data.token);
 								uni.setStorageSync('tokenHead', result.data.tokenHead);
-								uni.navigateBack({})
+								that.showLayer = false;
 							}else {
-								console.log('登录失败！' + result.message)
+								that.showLayer = false;
+								that.$api.msg(res.message)
 							}
 						} 
 					}
@@ -243,48 +249,49 @@
 						if(telephone!=''){
 							sendData.phone = telephone;
 							sendData.validationCode = authCode;
-							sendData.activationCode = that.activationCode;
+							// sendData.activationCode = that.activationCode;
 						}
-						if (that.$store.state.shareMemberId)
-						sendData.inviteCode = that.$store.state.shareMemberId;
+						if (that.$store.state.shareMemberId){
+							sendData.inviteCode = that.$store.state.shareMemberId;
+						}
 						let result = await that.$http.wechatRegister(sendData)
 						if(result.code == 200){
-							if(that.activationCode){
-								that.showLayer1 = true;
-							}
+							// if(that.activationCode){
+							// 	that.showLayer1 = true;
+							// }
 							uni.setStorageSync('token', result.data.token);
 							uni.setStorageSync('tokenHead', result.data.tokenHead);
+							that.showLayer = false;
 							
 						}else{
-							that.logining = false;
 							that.$api.msg(result.message)
-							uni.showLoading({
-								title:'登录中'
-							})
-							if(result.message=='该账号已注册'){
-								uni.login({
-									async success(res) {
-										if (res.code) {
-											let result = await that.$http.login({code:res.code,activationCode:that.activationCode});
-											console.log("登录",result)
-											if(result.code==200){
-												console.log('登录成功')
-												uni.setStorageSync('token', result.data.token);
-												uni.setStorageSync('tokenHead', result.data.tokenHead);
-												that.showLayer = false;
-												uni.hideLoading();
-											}else {
-												uni.showToast({
-													icon:"none",
-													title: result.message
-												})
-												uni.hideLoading();
-												console.log('登录失败！' + result.message)
-											}
-										} 
-									}
-								})
-							}
+							that.showLayer = false;
+							// that.logining = false;
+							// that.$api.msg(result.message)
+							// if(result.message=='该账号已注册'){
+							// 	uni.login({
+							// 		async success(res) {
+							// 			if (res.code) {
+							// 				let result = await that.$http.login({code:res.code,activationCode:that.activationCode});
+							// 				console.log("登录",result)
+							// 				if(result.code==200){
+							// 					console.log('登录成功')
+							// 					uni.setStorageSync('token', result.data.token);
+							// 					uni.setStorageSync('tokenHead', result.data.tokenHead);
+							// 					that.showLayer = false;
+							// 				}else {
+							// 					that.$api.msg(result.message)
+							// 					uni.hideLoading();
+							// 					console.log('登录失败！' + result.message)
+							// 				}
+							// 			} 
+							// 		}
+							// 	})
+							// }
+							// if(result.message=='赠送券已被使用'){
+							// 	that.$api.msg("赠送券已被使用")
+							// 	that.showLayer = false;
+							// }
 						}
 					}
 				})
@@ -327,6 +334,7 @@
 				if(token){
 					return this.$api.getMemberInfo();
 				}
+				return {};
 			}
 		}
 	}
@@ -408,7 +416,7 @@
 					align-items: center;
 					.item{
 						font-size: 30rpx;
-						margin-right: 30rpx;
+						padding-right: 40rpx;
 						flex: 0 0 auto;
 						&.active{
 							color: #B20000;
@@ -532,6 +540,8 @@
 			font-size: 30rpx;
 			color: #000000;
 			position: relative;
+			background: url("http://qn.dinglaobiao.com/1607433855605.jpg") no-repeat;
+			background-size: cover;
 			.close{
 				position: absolute;
 				width: 42rpx;
@@ -540,9 +550,6 @@
 				background-size: cover;
 				top: -120rpx;
 				right: -40rpx;
-			}
-			view{
-				margin-top: 100rpx;
 			}
 		}
 	}

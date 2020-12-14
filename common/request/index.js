@@ -792,7 +792,10 @@ export const wxPrePayCard = (data)=>{
 	return http.post('card/wxPrePayCard',data);
 }
 
-
+export const getSpicyRoomProductList = (data)=>{
+	http.interceptor();
+	return http.get('home/getSpicyRoomProductList',data);
+}
 
 
 
@@ -944,5 +947,6 @@ export default {
 	getCardList,
 	getMyGroup,
 	allowList,
-	wxPrePayCard
+	wxPrePayCard,
+	getSpicyRoomProductList
 }
